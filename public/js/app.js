@@ -2393,7 +2393,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: ['user'],
   data: function data() {
     return {
-      contact: {}
+      contact: {},
+      subMenu: false
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['conversation', 'messages', 'contactSelected'])),

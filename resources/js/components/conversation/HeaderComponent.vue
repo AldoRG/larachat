@@ -33,7 +33,8 @@
         props: ['user'],
         data() {
             return {
-                contact: {}
+                contact: {},
+                subMenu:false
             }
         },
         computed: {

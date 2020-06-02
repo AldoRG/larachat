@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,10 @@ DB::listen(function ($query){
     Log::info($query->sql);
 });
 
+Route::get('/test', function (){
+    dd(User::with('chats')->find(1));
+    dd(\App\User::class);
+});
 
 Route::get('/', function () {
     return view('welcome');

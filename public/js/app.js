@@ -2173,6 +2173,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     } else {
       this.contact = this.conversation.sender;
     }
+
+    this.contact = this.conversation;
   }
 });
 
@@ -2222,12 +2224,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     openConversation: function openConversation() {
       this.$store.commit('CLEAR_CONVERSATION');
       this.newConversation.receiver = this.contact;
+      this.newConversation.user = this.user;
+      this.newConversation.name = this.contact.name;
+      this.newConversation.image = this.contact.image;
       this.newConversation.receiver_id = this.contact.id;
       this.newConversation.sender_id = null;
       this.newConversation.sender = null;
       this.newConversation.id = 0;
       this.$store.commit("SELECT_CONVERSATION", this.newConversation);
-      this.$store.commit("GET_CONTACT", this.contact);
+      this.$store.commit("GET_CONTACT", this.newConversation);
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['contactSelected']))
@@ -2269,8 +2274,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   props: ['user'],
   name: "BodyComponent",
-  updated: function updated() {//let container = this.$el.querySelector("#conver-body");
-    //container.scrollTop = container.scrollHeight;
+  updated: function updated() {
+    this.$refs.cardBody.scrollTop = this.$refs.cardBody.scrollHeight;
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(["messages"]))
 });
@@ -2328,11 +2333,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch("SEND_MESSAGE", {
         'conversation_id': this.conversation.id,
         'message': this.message,
-        'receiver_id': receiverId,
-        'sender_id': this.user
+        'user_id': this.user,
+        'receiver_id': receiverId
       });
       this.$store.commit('ADD_MESSAGE', {
-        'sender_id': this.user,
+        'user_id': this.user,
         'message': this.message
       });
       this.message = null;
@@ -44511,6 +44516,7 @@ var render = function() {
     ? _c(
         "div",
         {
+          ref: "cardBody",
           staticClass: "card-body msg_card_body",
           attrs: { id: "conver-body" }
         },
@@ -44744,13 +44750,13 @@ var render = function() {
     {
       staticClass: "d-flex mb-4",
       class: [
-        _vm.message.sender_id == _vm.user
+        _vm.message.user_id == _vm.user
           ? "justify-content-end"
           : "justify-content-start"
       ]
     },
     [
-      _vm.message.sender_id != _vm.user
+      _vm.message.user_id != _vm.user
         ? _c("div", { staticClass: "img_cont_msg" }, [
             _c("img", {
               staticClass: "rounded-circle user_img_msg",
@@ -44763,7 +44769,7 @@ var render = function() {
         "div",
         {
           class: [
-            _vm.message.sender_id == _vm.user
+            _vm.message.user_id == _vm.user
               ? "msg_cotainer_send"
               : "msg_cotainer"
           ]
@@ -44776,7 +44782,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _vm.message.sender_id == _vm.user
+      _vm.message.user_id == _vm.user
         ? _c("div", { staticClass: "img_cont_msg" }, [
             _c("img", {
               staticClass: "rounded-circle user_img_msg",

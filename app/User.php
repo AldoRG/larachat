@@ -61,4 +61,9 @@ class User extends Authenticatable
     {
         return "https://api.adorable.io/avatars/285/abott@{$this->id}.png";
     }
+
+    public function chats()
+    {
+        return $this->belongsToMany(Conversation::class);
+    }
 }

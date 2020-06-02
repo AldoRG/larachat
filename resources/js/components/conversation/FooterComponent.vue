@@ -32,12 +32,12 @@
                 this.$store.dispatch("SEND_MESSAGE", {
                     'conversation_id': this.conversation.id,
                     'message': this.message,
-                    'receiver_id': receiverId,
-                    'sender_id': this.user
+                    'user_id': this.user,
+                    'receiver_id': receiverId
                 });
                 this.$store.commit('ADD_MESSAGE', {
-                    'sender_id': this.user,
-                    'message': this.message,
+                    'user_id': this.user,
+                    'message': this.message
                 })
                 this.message = null
             }

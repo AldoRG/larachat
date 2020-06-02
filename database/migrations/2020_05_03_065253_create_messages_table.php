@@ -16,14 +16,12 @@ class CreateMessagesTable extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('conversation_id');
-            $table->unsignedBigInteger('sender_id');
-            $table->unsignedBigInteger('receiver_id');
+            $table->unsignedBigInteger('user_id');
             $table->text('message');
             $table->timestamps();
             // TODO: remove receiver id, since in a conversation everybody can read the message, just matter who sent it.
             $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade');
-            $table->foreign('sender_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('receiver_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -33,7 +33,7 @@ class MessageSent implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('newMessage.User.'.$this->message->receiver_id);
+        return new Channel('newMessage.User.'.$this->message->target);
     }
 
     public function broadcastAs(){

@@ -27,12 +27,15 @@
             openConversation() {
                 this.$store.commit('CLEAR_CONVERSATION')
                 this.newConversation.receiver = this.contact
+                this.newConversation.user = this.user
+                this.newConversation.name = this.contact.name
+                this.newConversation.image = this.contact.image
                 this.newConversation.receiver_id = this.contact.id
                 this.newConversation.sender_id = null
                 this.newConversation.sender = null
                 this.newConversation.id = 0
                 this.$store.commit("SELECT_CONVERSATION", this.newConversation)
-                this.$store.commit("GET_CONTACT", this.contact)
+                this.$store.commit("GET_CONTACT", this.newConversation)
             }
         },
         computed: {

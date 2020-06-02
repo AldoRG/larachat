@@ -6,22 +6,35 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model
 {
-    public $fillable = ['sender_id', 'receiver_id', 'new_messages'];
+    public $fillable = ['sender_id', 'receiver_id', 'new_messages', 'name', 'image'];
     public $timestamps = true;
-    protected $with = ['receiver', 'sender'];
-
-    public function receiver()
-    {
-        return $this->belongsTo('App\User', 'receiver_id');
-    }
-
-    public function sender()
-    {
-        return $this->belongsTo('App\User', 'sender_id');
-    }
 
     public function messages()
     {
-        return $this->hasMany('App\Message');
+        return $this->hasMany(Message::class);
+    }
+
+    public function chat()
+    {
+        return $this->hasMany(ConversationUser::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function getNameAttribute($value)
+    {
+        //if (is_null($value))
+        //    return $this->users()->orderBy('id', 'DESC')->first()->name;
+        return $value;
+    }
+
+    public function getImageAttribute($value)
+    {
+        if (is_null($value))
+            return $this->users()->orderBy('id', 'DESC')->first()->image;
+        return $value;
     }
 }

@@ -11,9 +11,8 @@ class ConversationController extends Controller
 {
     public function index($user_id)
     {
-        $user = User::with('conversations')->find($user_id);
-        $conversations = Conversation::where('sender_id', $user_id)->orWhere('receiver_id', $user_id)->get();
-        return response()->json($conversations);
+        $user = User::with('chats.users')->find($user_id);
+        return response()->json($user->chats);
     }
 
     public function clearNewMessages($conversation_id)

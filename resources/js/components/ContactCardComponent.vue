@@ -44,6 +44,7 @@
             } else {
                 this.contact = this.conversation.sender
             }
+            this.contact = this.conversation
         }
     }
 </script>

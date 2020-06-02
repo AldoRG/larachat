@@ -2162,18 +2162,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.$store.commit("SELECT_CONVERSATION", conversation);
+      this.$store.commit("GET_CONTACT", conversation);
       this.$store.commit("ACTIVE_CONVERSATION", conversation.id);
       this.$store.dispatch("GET_MESSAGES", conversation.id);
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(["selected"])),
   mounted: function mounted() {
-    if (this.conversation.sender_id == this.user) {
-      this.contact = this.conversation.receiver;
-    } else {
-      this.contact = this.conversation.sender;
-    }
-
     this.contact = this.conversation;
   }
 });
@@ -2275,7 +2270,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: ['user'],
   name: "BodyComponent",
   updated: function updated() {
-    this.$refs.cardBody.scrollTop = this.$refs.cardBody.scrollHeight;
+    if (this.$refs.cardBody) {
+      this.$refs.cardBody.scrollTop = this.$refs.cardBody.scrollHeight;
+    }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(["messages"]))
 });
@@ -2398,18 +2395,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: ['user'],
   data: function data() {
     return {
-      contact: {},
       subMenu: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['conversation', 'messages', 'contactSelected'])),
-  updated: function updated() {
-    if (this.conversation.sender_id == this.user) {
-      this.contact = this.conversation.receiver;
-    } else {
-      this.contact = this.conversation.sender;
-    }
-  }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['conversation', 'messages', 'contact']))
 });
 
 /***/ }),
@@ -58973,7 +58962,7 @@ var getters = {
   contacts: function contacts(state) {
     return state.contacts;
   },
-  contactSelected: function contactSelected(state) {
+  contact: function contact(state) {
     return state.contact;
   }
 };

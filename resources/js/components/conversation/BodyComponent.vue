@@ -17,7 +17,9 @@
         props: ['user'],
         name: "BodyComponent",
         updated() {
-            this.$refs.cardBody.scrollTop = this.$refs.cardBody.scrollHeight
+            if (this.$refs.cardBody) {
+                this.$refs.cardBody.scrollTop = this.$refs.cardBody.scrollHeight
+            }
         },
         computed: {
             ...mapGetters(["messages"]),

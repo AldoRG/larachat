@@ -33,19 +33,11 @@
         props: ['user'],
         data() {
             return {
-                contact: {},
                 subMenu:false
             }
         },
         computed: {
-            ...mapGetters(['conversation', 'messages', 'contactSelected']),
-        },
-        updated() {
-            if ( this.conversation.sender_id == this.user ) {
-                this.contact = this.conversation.receiver
-            } else {
-                this.contact = this.conversation.sender
-            }
+            ...mapGetters(['conversation', 'messages', 'contact']),
         }
     }
 </script>

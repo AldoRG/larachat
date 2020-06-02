@@ -31,6 +31,7 @@
                     this.$store.dispatch('CLEAR_MESSAGES', conversation.id)
                 }
                 this.$store.commit("SELECT_CONVERSATION", conversation)
+                this.$store.commit("GET_CONTACT", conversation)
                 this.$store.commit("ACTIVE_CONVERSATION", conversation.id)
                 this.$store.dispatch("GET_MESSAGES", conversation.id)
             }
@@ -39,11 +40,6 @@
             ...mapGetters(["selected"]),
         },
         mounted() {
-            if ( this.conversation.sender_id == this.user ) {
-                this.contact = this.conversation.receiver
-            } else {
-                this.contact = this.conversation.sender
-            }
             this.contact = this.conversation
         }
     }

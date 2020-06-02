@@ -20,7 +20,7 @@ let getters = {
     contacts: state => {
         return state.contacts
     },
-    contactSelected: state => {
+    contact: state => {
         return state.contact
     }
 }

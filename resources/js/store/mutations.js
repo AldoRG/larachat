@@ -13,7 +13,7 @@ let mutations = {
     },
     UPDATE_CONVERSATIONS(state, message) {
         let index = state.conversations.findIndex(el => el.id == message.conversation_id);
-        state.conversations[index].new_messages++;
+        state.conversations[index].pivot.new_messages++;
     },
     SELECT_CONVERSATION(state, conversation) {
         state.conversation = conversation

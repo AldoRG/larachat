@@ -28,8 +28,8 @@ let actions = {
                 }
             )
     },
-    CLEAR_MESSAGES({commit}, conversationId) {
-        axios.get(`/api/conversations/${conversationId}/clear-messages`)
+    CLEAR_MESSAGES({commit}, data) {
+        axios.get(`/api/conversations/${data.conversationId}/clear-messages/${data.userId}`)
             .then(res => {
                 commit('GET_MESSAGES', res.data)
             })

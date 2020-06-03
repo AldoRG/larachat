@@ -22,4 +22,4 @@ Route::post('contacts', 'ConversationController@getContacts');
 Route::get('conversations/{user_id}', 'ConversationController@index');
 Route::post('conversations/message', 'MessageController@sendMessage');
 Route::get('conversations/{conversation_id}/messages', 'MessageController@show');
-Route::get('conversations/{conversation_id}/clear-messages', 'ConversationController@clearNewMessages');
+Route::get('conversations/{conversation_id}/clear-messages/{user_id}', 'ConversationController@clearNewMessages');

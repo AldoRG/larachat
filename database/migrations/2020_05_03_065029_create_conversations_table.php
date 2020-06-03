@@ -17,7 +17,6 @@ class CreateConversationsTable extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('image')->nullable();
-            $table->integer('new_messages')->default(0);
             $table->timestamps();
         });
     }

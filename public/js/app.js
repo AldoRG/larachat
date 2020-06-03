@@ -2156,9 +2156,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     openConversation: function openConversation(conversation) {
-      if (conversation.new_messages > 0) {
-        conversation.new_messages = 0;
-        this.$store.dispatch('CLEAR_MESSAGES', conversation.id);
+      if (conversation.pivot.new_messages > 0) {
+        conversation.pivot.new_messages = 0;
+        this.$store.dispatch('CLEAR_MESSAGES', {
+          conversationId: conversation.id,
+          userId: this.user
+        });
       }
 
       this.$store.commit("SELECT_CONVERSATION", conversation);
@@ -2228,6 +2231,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.newConversation.id = 0;
       this.$store.commit("SELECT_CONVERSATION", this.newConversation);
       this.$store.commit("GET_CONTACT", this.newConversation);
+      this.$store.commit("GET_MESSAGES", {});
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['contactSelected']))
@@ -44412,9 +44416,9 @@ var render = function() {
           _c("span", { staticClass: "online_icon" })
         ]),
         _vm._v(" "),
-        _vm.conversation.new_messages > 0
+        _vm.conversation.pivot.new_messages > 0
           ? _c("span", { staticClass: "badge badge-light badge-height" }, [
-              _vm._v(_vm._s(_vm.conversation.new_messages))
+              _vm._v(_vm._s(_vm.conversation.pivot.new_messages))
             ])
           : _vm._e(),
         _vm._v(" "),
@@ -58910,9 +58914,9 @@ var actions = {
       console.log(err);
     });
   },
-  CLEAR_MESSAGES: function CLEAR_MESSAGES(_ref4, conversationId) {
+  CLEAR_MESSAGES: function CLEAR_MESSAGES(_ref4, data) {
     var commit = _ref4.commit;
-    axios.get("/api/conversations/".concat(conversationId, "/clear-messages")).then(function (res) {
+    axios.get("/api/conversations/".concat(data.conversationId, "/clear-messages/").concat(data.userId)).then(function (res) {
       commit('GET_MESSAGES', res.data);
     })["catch"](function (err) {
       console.log(err);
@@ -59028,7 +59032,7 @@ var mutations = {
     var index = state.conversations.findIndex(function (el) {
       return el.id == message.conversation_id;
     });
-    state.conversations[index].new_messages++;
+    state.conversations[index].pivot.new_messages++;
   },
   SELECT_CONVERSATION: function SELECT_CONVERSATION(state, conversation) {
     state.conversation = conversation;

@@ -36,6 +36,9 @@ class Message extends Model
         }])->find($this->conversation_id);
         foreach ($conversation->users as $user) {
             $this->target = $user->id;
+            $conversationUser = ConversationUser::where('conversation_id', $this->conversation_id)->where('user_id', $user->id)->first();
+            $conversationUser->new_messages += 1;
+            $conversationUser->save();
             broadcast(new MessageSent($this));
         }
     }

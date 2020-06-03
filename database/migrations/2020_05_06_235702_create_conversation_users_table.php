@@ -17,6 +17,7 @@ class CreateConversationUsersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('conversation_id');
             $table->unsignedBigInteger('user_id');
+            $table->integer('new_messages')->default(0);
             $table->timestamps();
 
             $table->foreign('conversation_id')->references('id')->on('conversations')->onDelete('cascade');

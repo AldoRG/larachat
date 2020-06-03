@@ -36,8 +36,6 @@ class MessageController extends Controller
                 'conversation_id' => $conversation->id
             ]));
         }
-        $conversation->new_messages +=1;
-        $conversation->save();
         $conversation->messages()->save($message);
         $message->sendMessageNotifications();
         return response()->json('sent');

@@ -36,6 +36,7 @@
                 this.newConversation.id = 0
                 this.$store.commit("SELECT_CONVERSATION", this.newConversation)
                 this.$store.commit("GET_CONTACT", this.newConversation)
+                this.$store.commit("GET_MESSAGES", {})
             }
         },
         computed: {

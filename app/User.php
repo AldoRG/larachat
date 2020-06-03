@@ -64,6 +64,6 @@ class User extends Authenticatable
 
     public function chats()
     {
-        return $this->belongsToMany(Conversation::class);
+        return $this->belongsToMany(Conversation::class)->withPivot('new_messages');
     }
 }

@@ -24,13 +24,6 @@ class Conversation extends Model
         return $this->belongsToMany(User::class);
     }
 
-    public function getNameAttribute($value)
-    {
-        //if (is_null($value))
-        //    return $this->users()->orderBy('id', 'DESC')->first()->name;
-        return $value;
-    }
-
     public function getImageAttribute($value)
     {
         if (is_null($value))

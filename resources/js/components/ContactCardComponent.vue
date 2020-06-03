@@ -5,7 +5,7 @@
                 <img :src="contact.image" class="rounded-circle user_img">
                 <span class="online_icon"></span>
             </div>
-            <span v-if="conversation.new_messages > 0" class="badge badge-light badge-height">{{ conversation.new_messages }}</span>
+            <span v-if="conversation.pivot.new_messages > 0" class="badge badge-light badge-height">{{ conversation.pivot.new_messages }}</span>
             <div class="user_info">
                 <span>{{ contact.name }}</span>
                 <p>online</p>
@@ -26,9 +26,9 @@
         },
         methods: {
             openConversation(conversation) {
-                if (conversation.new_messages > 0) {
-                    conversation.new_messages = 0
-                    this.$store.dispatch('CLEAR_MESSAGES', conversation.id)
+                if (conversation.pivot.new_messages > 0) {
+                    conversation.pivot.new_messages = 0
+                    this.$store.dispatch('CLEAR_MESSAGES', { conversationId: conversation.id, userId: this.user})
                 }
                 this.$store.commit("SELECT_CONVERSATION", conversation)
                 this.$store.commit("GET_CONTACT", conversation)

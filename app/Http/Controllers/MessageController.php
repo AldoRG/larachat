@@ -25,7 +25,6 @@ class MessageController extends Controller
         ]);
         $conversation = Conversation::findOrNew($request->conversation_id);
         if (!$conversation->exists) {
-            $conversation->name = User::find($request->receiver_id)->name;
             $conversation->save();
             $conversation->chat()->save(ConversationUser::create([
                 'user_id' => $request->user_id,
